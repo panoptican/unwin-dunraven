@@ -1,22 +1,28 @@
+// ScrollMagic section pinning
+(function() {
+  'use strict';
 
-$(function(){
+  function init() {
+    var controller = new ScrollMagic.Controller({
+      globalSceneOptions: {
+        triggerHook: 'onLeave'
+      }
+    });
 
-	// initialize ScrollMagic
-	var controller = new ScrollMagic.Controller({
-		globalSceneOptions: {
-			triggerHook: 'onLeave'
-		}
-	});
+    var slides = document.querySelectorAll('div.section');
 
-	// get all sections
-	var slides = document.querySelectorAll("div.section");
+    for (var i = 0; i < slides.length; i++) {
+      new ScrollMagic.Scene({
+        triggerElement: slides[i]
+      })
+        .setPin(slides[i])
+        .addTo(controller);
+    }
+  }
 
-	// create scene for each section
-	for (var i=0; i<slides.length; i++) {
-		new ScrollMagic.Scene({
-				triggerElement: slides[i]
-			})
-			.setPin(slides[i])
-			.addTo(controller);
-	}
-})
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
