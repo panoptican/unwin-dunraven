@@ -1,77 +1,130 @@
-// via Larry A. Williamson
-// http://codepen.io/lawrencealan/pen/dJuao
+// Triangle background animation
+// Based on work by Larry A. Williamson (http://codepen.io/lawrencealan/pen/dJuao)
 
-var triforce_timeout = null;
-var triforce = {
-  conf: {
-    unit_size:64,
-    rows:300,
-    cols:300,
-    delay:75,
-    iterations:250
-  },
-  init: function(){
-    var ww,wh;
-    ww=($('#cover-section').width());
-    wh=($('#cover-section').height());
+(function() {
+  'use strict';
 
-    $t = triforce;
-    $t.cvs = document.createElement('canvas');
-    $t.cvs.setAttribute('width',ww*2);
-    $t.cvs.setAttribute('height',wh*2);
+  var canvas = null;
+  var ctx = null;
+  var animationId = null;
+  var resizeTimeout = null;
+  var iteration = 0;
 
-    $t.ctx = $t.cvs.getContext('2d');
+  var config = {
+    unitSize: 64,
+    rows: 0,
+    cols: 0,
+    maxIterations: 100,
+    trianglesPerFrame: 8
+  };
 
-    $('#cover-section').append($t.cvs);
-    $t.cvs = $($t.cvs);
-
-    $t.cvs.css({
-      width: ww+"px",
-      height: wh+"px"
-    });
-
-    $t.conf.rows = wh*2/$t.conf.unit_size;
-    $t.conf.cols = ww*2/$t.conf.unit_size;
-
-    $t.go();
-  },
-  ctx: null,
-  go: function(){
-    for(var c = 0; c<$t.conf.cols; c++)
-      for(var r = 0; r<$t.conf.rows; r++) {
-        var ux = (c*$t.conf.unit_size)+ (r%2 ? $t.conf.unit_size*.5 : 0);
-        $t.unit(ux,r*$t.conf.unit_size);
-        r+= -2+Math.round(4*Math.random());
-        c+= -2+Math.round(4*Math.random());
-      }
-    if($t.conf.delay>0 && $t.conf.iterations-->0)
-      setTimeout($t.go,$t.conf.delay);
-  },
-  unit: function(x,y) {
-    var fs,this_size,this_bottom;
-    fs=$t.randColor();
-    if(fs) {
-
-    this_size = $t.conf.unit_size;
-    this_size = this_size * Math.ceil(Math.random()*10);
-    this_top = y-this_size*.5;
-    this_bottom = this_top + this_size*.85;
-
-    $t.ctx.beginPath();
-    $t.ctx.fillStyle = fs;
-    $t.ctx.moveTo(x+this_size*.5, this_top);
-    $t.ctx.lineTo(x+this_size, this_bottom);
-    $t.ctx.lineTo(x,this_bottom);
-    $t.ctx.fill();
-    }
-  },
-  randColor: function(){
-    return randomColor({hue: 'monochrome', luminosity: 'dark'});;
+  // Detect if user prefers reduced motion
+  function prefersReducedMotion() {
+    return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   }
-}
 
-$(window).on('load resize',function(){
-  $('canvas').remove();
-  clearTimeout(triforce_timeout);
-  triforce_timeout = setTimeout(triforce.init,30);
-});
+  // Check if device is mobile (for performance adjustments)
+  function isMobile() {
+    return window.innerWidth <= 768;
+  }
+
+  function init() {
+    var coverSection = document.getElementById('cover-section');
+    if (!coverSection) return;
+
+    // Clean up existing canvas and animation
+    cleanup();
+
+    var width = coverSection.offsetWidth;
+    var height = coverSection.offsetHeight;
+    var dpr = Math.min(window.devicePixelRatio || 1, 2); // Cap at 2x for performance
+
+    canvas = document.createElement('canvas');
+    canvas.width = width * dpr;
+    canvas.height = height * dpr;
+    canvas.style.width = width + 'px';
+    canvas.style.height = height + 'px';
+
+    ctx = canvas.getContext('2d');
+    ctx.scale(dpr, dpr);
+
+    coverSection.appendChild(canvas);
+
+    config.rows = Math.ceil(height / config.unitSize);
+    config.cols = Math.ceil(width / config.unitSize);
+
+    // Reduce iterations on mobile or if user prefers reduced motion
+    if (prefersReducedMotion()) {
+      config.maxIterations = 1;
+      config.trianglesPerFrame = 50;
+    } else if (isMobile()) {
+      config.maxIterations = 40;
+      config.trianglesPerFrame = 6;
+    } else {
+      config.maxIterations = 100;
+      config.trianglesPerFrame = 8;
+    }
+
+    iteration = 0;
+    animate();
+  }
+
+  function cleanup() {
+    if (animationId) {
+      cancelAnimationFrame(animationId);
+      animationId = null;
+    }
+    if (canvas && canvas.parentNode) {
+      canvas.parentNode.removeChild(canvas);
+    }
+    canvas = null;
+    ctx = null;
+  }
+
+  function animate() {
+    if (iteration >= config.maxIterations || !ctx) {
+      return;
+    }
+
+    // Draw multiple triangles per frame for efficiency
+    for (var i = 0; i < config.trianglesPerFrame; i++) {
+      var c = Math.floor(Math.random() * config.cols);
+      var r = Math.floor(Math.random() * config.rows);
+      var x = c * config.unitSize + (r % 2 ? config.unitSize * 0.5 : 0);
+      var y = r * config.unitSize;
+      drawTriangle(x, y);
+    }
+
+    iteration++;
+    animationId = requestAnimationFrame(animate);
+  }
+
+  function drawTriangle(x, y) {
+    var color = randomColor({ hue: 'monochrome', luminosity: 'dark' });
+    var size = config.unitSize * Math.ceil(Math.random() * 8);
+    var top = y - size * 0.5;
+    var bottom = top + size * 0.85;
+
+    ctx.beginPath();
+    ctx.fillStyle = color;
+    ctx.moveTo(x + size * 0.5, top);
+    ctx.lineTo(x + size, bottom);
+    ctx.lineTo(x, bottom);
+    ctx.fill();
+  }
+
+  function handleResize() {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(init, 150);
+  }
+
+  // Initialize on DOM ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+
+  // Debounced resize handler
+  window.addEventListener('resize', handleResize);
+})();
