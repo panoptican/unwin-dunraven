@@ -73,6 +73,11 @@ a {
   text-decoration: none;
 }
 
+img {
+  max-width: 100%;
+  height: auto;
+}
+
 #cover-section {
 	position: relative;
 	background-color: #262626;
