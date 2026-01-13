@@ -35,7 +35,7 @@
 }
 
 html {
-  font-family: 'averia_serif_libreregular', sans-serif;;
+  font-family: 'averia_serif_libreregular', sans-serif;
 }
 
 #container {
@@ -47,10 +47,9 @@ html {
 }
 
 .flex {
-	display: flex;
-  display: -webkit-flex;
-	flex-flow: column nowrap;
-	justify-content: center;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
   align-items: center;
 }
 
