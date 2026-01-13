@@ -1,8 +1,15 @@
-// ScrollMagic section pinning
+// Site initialization
 (function() {
   'use strict';
 
   function init() {
+    // Set current year in footer
+    var yearEl = document.getElementById('year');
+    if (yearEl) {
+      yearEl.textContent = new Date().getFullYear();
+    }
+
+    // ScrollMagic section pinning
     var controller = new ScrollMagic.Controller({
       globalSceneOptions: {
         triggerHook: 'onLeave'
