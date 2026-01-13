@@ -86,7 +86,8 @@ img {
   width: 100%;
   max-width: 800px;
   padding: 0 1.5rem;
-  font-size: 1.35em;
+  font-size: clamp(1rem, 2.5vw, 1.35rem);
+  line-height: 1.6;
   margin: 20px auto;
   box-sizing: border-box;
 }
