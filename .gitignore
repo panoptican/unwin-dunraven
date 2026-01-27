@@ -32,6 +32,10 @@ bh_unicode_properties.cache
 # https://packagecontrol.io/packages/sublime-github
 GitHub.sublime-settings
 
+# Claude Code
+CLAUDE.md
+.claude/
+
 # Created by https://www.gitignore.io/api/node
 
 ### Node ###
