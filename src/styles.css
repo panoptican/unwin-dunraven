@@ -35,15 +35,34 @@
 }
 
 html {
-  font-family: 'averia_serif_libreregular', sans-serif;
+  box-sizing: border-box;
+  font-family: 'averia_serif_libreregular', serif;
 }
 
-#container {
-  width: 100vw;
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
 }
 
-.section {
-  text-align: justify;
+:root {
+  --ink: #1f1a17;
+  --ink-soft: #3e332d;
+  --bg-cover: #262626;
+  --focus: #8a2d1f;
+  --content-max: 50rem;
+  --copy-max: 68ch;
+  --section-padding: clamp(1.25rem, 2.5vw, 2.5rem);
+  --panel-bg: rgba(250, 243, 232, 0.88);
+  --panel-border: rgba(73, 56, 46, 0.25);
+}
+
+body {
+  margin: 0;
+  color: var(--ink);
+  background-color: #f8f3ee;
+  line-height: 1.5;
+  text-rendering: optimizeLegibility;
 }
 
 .flex {
@@ -53,58 +72,226 @@ html {
   align-items: center;
 }
 
+#container {
+  width: 100%;
+}
+
+.section {
+  width: 100%;
+  min-height: 100svh;
+  min-height: 100vh;
+  text-align: left;
+  padding: var(--section-padding);
+}
+
+.section-inner {
+  width: min(100%, 72rem);
+  margin: 0 auto;
+}
+
 a {
+  color: inherit;
   text-decoration: none;
 }
 
+.skip-link {
+  position: absolute;
+  left: 0.75rem;
+  top: 0.75rem;
+  z-index: 30;
+  padding: 0.55rem 0.8rem;
+  background: #fff4e7;
+  border: 1px solid #392c26;
+  transform: translateY(-140%);
+  transition: transform 180ms ease;
+}
+
+.skip-link:focus-visible {
+  transform: translateY(0);
+}
+
+a:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 4px;
+}
+
 img {
+  display: block;
   max-width: 100%;
   height: auto;
 }
 
-#cover-section {
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+#cover-section.section {
   position: relative;
-  background-color: #262626;
-  height: 100vh;
-  width: 100vw;
+  background-color: var(--bg-cover);
+  padding: 0;
 }
 
 #logo {
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
   position: absolute;
+  inset: 0;
+}
+
+#logo a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: min(72vw, 26rem);
 }
 
 #plinth-section {
+  position: relative;
+  isolation: isolate;
   background-image: url('./images/bg_mochagrunge.png');
   background-repeat: repeat;
-  height: 100vh;
-  width: 100vw;
+  color: var(--ink-soft);
+}
+
+#plinth-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(165deg, rgba(255, 250, 244, 0.36), rgba(231, 222, 208, 0.16));
+  z-index: -1;
+}
+
+#plinth-section .section-inner {
+  display: grid;
+  gap: clamp(1rem, 2vw, 1.6rem);
+  justify-items: center;
+}
+
+#plinth-section a,
+#ichnos-section a {
+  transition: transform 180ms ease;
+}
+
+#plinth-section a:hover,
+#plinth-section a:focus-visible,
+#ichnos-section a:hover,
+#ichnos-section a:focus-visible {
+  transform: translateY(-3px);
+}
+
+#plinth-section a {
+  width: min(88vw, 38rem);
+}
+
+#plinth-section img {
+  width: 100%;
+}
+
+.plinth-copy {
+  width: min(100%, var(--content-max));
+  border: 1px solid var(--panel-border);
+  background: var(--panel-bg);
+  box-shadow: 0 0.75rem 2.6rem rgba(15, 9, 5, 0.12);
+  padding: clamp(1rem, 2.5vw, 1.5rem);
 }
 
 #plinth-section p {
-  width: 100%;
-  max-width: 800px;
-  padding: 0 1.5rem;
-  font-size: clamp(1rem, 2.5vw, 1.35rem);
-  line-height: 1.6;
-  margin: 20px auto;
-  box-sizing: border-box;
+  width: min(100%, var(--copy-max));
+  padding: 0;
+  font-size: clamp(1rem, 0.95rem + 0.8vw, 1.28rem);
+  line-height: 1.7;
+  margin: 1rem auto;
+  text-wrap: pretty;
 }
 
 #ichnos-section {
+  position: relative;
+  isolation: isolate;
   background-image: url('./images/bg_cartography.png');
   background-repeat: repeat;
-  height: 100vh;
-  width: 100vw;
+}
+
+#ichnos-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(248, 244, 238, 0.1), rgba(233, 224, 210, 0.04));
+  z-index: -1;
+}
+
+#ichnos-section .section-inner {
+  display: grid;
+  place-items: center;
+}
+
+#ichnos-section a {
+  width: min(70vw, 24rem);
 }
 
 #attr-section {
   background-image: url('./images/bg_pinkrice.png');
   background-repeat: repeat;
-  color: black;
+  color: #000;
+  min-height: auto;
+  padding: 1.25rem;
 }
 
 #attr-section a {
   color: black;
+}
+
+@media (max-width: 64rem) {
+  .section {
+    min-height: 88svh;
+    padding: clamp(1rem, 3vw, 1.5rem);
+  }
+
+  #cover-section.section {
+    min-height: 100svh;
+  }
+
+  #logo a {
+    width: min(86vw, 23rem);
+  }
+
+  #ichnos-section a {
+    width: min(78vw, 22rem);
+  }
+}
+
+@media (max-width: 48rem) {
+  #cover-section.section {
+    min-height: 100svh;
+  }
+
+  .plinth-copy {
+    padding: 0.95rem;
+  }
+
+  #plinth-section p {
+    font-size: clamp(0.98rem, 0.92rem + 0.65vw, 1.12rem);
+    line-height: 1.62;
+  }
+}
+
+@media (max-width: 24rem) {
+  #logo a {
+    width: 90vw;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
 }

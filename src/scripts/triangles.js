@@ -20,7 +20,7 @@
 
   // Detect if user prefers reduced motion
   function prefersReducedMotion() {
-    return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   }
 
   // Check if device is mobile (for performance adjustments)
@@ -40,6 +40,7 @@
     var dpr = Math.min(window.devicePixelRatio || 1, 2); // Cap at 2x for performance
 
     canvas = document.createElement('canvas');
+    canvas.setAttribute('aria-hidden', 'true');
     canvas.width = width * dpr;
     canvas.height = height * dpr;
     canvas.style.width = width + 'px';

@@ -4,26 +4,75 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Unwin-Dunraven Literary Ecclesia publishes PLINTH journal each equinox, collecting poetry, philosophy, fable, and the science-fictional.">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <meta name="theme-color" content="#262626">
+    <meta property="og:title" content="Unwin-Dunraven Literary Ecclesia">
+    <meta property="og:description" content="The Unwin-Dunraven Literary Ecclesia publishes PLINTH each equinox, gathering poetry, philosophy, fable, and the science-fictional.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://unwin-dunraven.com/">
+    <meta property="og:image" content="https://unwin-dunraven.com/images/logo_udle.png">
+    <meta property="og:site_name" content="Unwin-Dunraven Literary Ecclesia">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Unwin-Dunraven Literary Ecclesia">
+    <meta name="twitter:description" content="The Unwin-Dunraven Literary Ecclesia publishes PLINTH each equinox, gathering poetry, philosophy, fable, and the science-fictional.">
+    <meta name="twitter:image" content="https://unwin-dunraven.com/images/logo_udle.png">
     <title>Unwin-Dunraven Literary Ecclesia</title>
+    <link rel="canonical" href="https://unwin-dunraven.com/">
+    <link rel="preload" href="./type/averiaseriflibre-regular-webfont.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="normalize.css">
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" type="image/png" href="favicon.png">
     <script async defer data-domain="unwin-dunraven.com" src="https://plausible.io/js/plausible.js"></script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Unwin-Dunraven Literary Ecclesia",
+        "url": "https://unwin-dunraven.com/",
+        "logo": "https://unwin-dunraven.com/images/logo_udle.png",
+        "description": "Literary organization publishing PLINTH journal on each equinox.",
+        "publishingPrinciples": "https://www.plinth.us/"
+      }
+    </script>
   </head>
   <body>
-    <div id="container">
-      <div id="cover-section" class="section">
-        <div id="logo" class="flex"><a href="./ecclesia"><img src="./images/logo_udle.png" alt="Unwin-Dunraven Literary Ecclesia" width="416" height="415"></a></div>
-      </div>
-      <div id="plinth-section" class="section flex"><a href="https://www.plinth.us/"><img src="./images/logo_plinth.png" alt="PLINTH" width="612" height="170"></a>
-        <p>PLINTH is more than a journal. PLINTH collects &amp; manifests an alternate canon. Forming poetry, philosophy &amp; fable, the science-fictional &amp; alchemical, from essence to possibility, PLINTH undoes boundary or makes boundary womb for birth. PLINTH murmurs untold stories, fragments, weird thought modes, preposterous expression. For PLINTH, beauty is the liminal, the grotesque, the sublime, ritual &amp; devotional practice. PLINTH bridges stars. PLINTH adores the strange, depraved, the horrible &amp; the forgotten. PLINTH marks a chasm. PLINTH is a cogwheel with teeth grinding bullion back to lead. PLINTH is a library. Attend PLINTH as it incarnates in empty rooms, atop ziggurats decrepit or industrial, under gnarled branches, in spaces between throngs, &amp;c.</p>
-        <p>PLINTH attains each equinox by effort of the Unwin-Dunraven Literary Ecclesia.</p>
-      </div>
-      <div id="ichnos-section" class="section flex"><a href="https://www.ichnos.net"><img src="./images/logo_ichnos.svg" alt="ICHNOS" width="416" height="417"></a></div>
-      <div id="attr-section" class="section flex">
-        <p>Copyright <span id="year"></span> Unwin-Dunraven Literary Ecclesia</p>
-      </div>
-    </div>
+    <a class="skip-link" href="#plinth-section">Skip to content</a>
+    <main id="container" role="main">
+      <section id="cover-section" class="section section--cover" data-pin="true" aria-labelledby="ecclesia-title">
+        <h1 id="ecclesia-title" class="visually-hidden">Unwin-Dunraven Literary Ecclesia</h1>
+        <div id="logo" class="flex">
+          <a href="./ecclesia" aria-label="Visit the Ecclesia section">
+            <img src="./images/logo_udle.png" alt="Unwin-Dunraven Literary Ecclesia" width="416" height="415" fetchpriority="high" decoding="async">
+          </a>
+        </div>
+      </section>
+
+      <section id="plinth-section" class="section flex" data-pin="true" aria-labelledby="plinth-title">
+        <div class="section-inner">
+          <h2 id="plinth-title" class="visually-hidden">PLINTH Journal</h2>
+          <a href="https://www.plinth.us/" target="_blank" rel="noopener noreferrer" aria-label="Open PLINTH website in a new tab">
+            <img src="./images/logo_plinth.png" alt="PLINTH" width="612" height="170" decoding="async">
+          </a>
+          <div class="plinth-copy">
+            <p>PLINTH is more than a journal. PLINTH collects &amp; manifests an alternate canon. Forming poetry, philosophy &amp; fable, the science-fictional &amp; alchemical, from essence to possibility, PLINTH undoes boundary or makes boundary womb for birth. PLINTH murmurs untold stories, fragments, weird thought modes, preposterous expression. For PLINTH, beauty is the liminal, the grotesque, the sublime, ritual &amp; devotional practice. PLINTH bridges stars. PLINTH adores the strange, depraved, the horrible &amp; the forgotten. PLINTH marks a chasm. PLINTH is a cogwheel with teeth grinding bullion back to lead. PLINTH is a library. Attend PLINTH as it incarnates in empty rooms, atop ziggurats decrepit or industrial, under gnarled branches, in spaces between throngs, &amp;c.</p>
+            <p>PLINTH attains each equinox by effort of the Unwin-Dunraven Literary Ecclesia.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="ichnos-section" class="section flex" data-pin="true" aria-labelledby="ichnos-title">
+        <div class="section-inner">
+          <h2 id="ichnos-title" class="visually-hidden">ICHNOS</h2>
+          <a href="https://www.ichnos.net" target="_blank" rel="noopener noreferrer" aria-label="Open ICHNOS website in a new tab">
+            <img src="./images/logo_ichnos.svg" alt="ICHNOS" width="416" height="417" decoding="async" loading="lazy">
+          </a>
+        </div>
+      </section>
+
+      <footer id="attr-section" class="section flex" aria-label="Site attribution">
+        <p>Copyright <span id="year">2026</span> Unwin-Dunraven Literary Ecclesia</p>
+      </footer>
+    </main>
     <script src="./scripts/randomcolor.js"></script>
     <script src="./scripts/scrollmagic.min.js"></script>
     <script src="./scripts/triangles.js"></script>
