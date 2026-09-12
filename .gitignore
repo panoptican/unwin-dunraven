@@ -1,6 +1,12 @@
 
 resources
 
+# Local agent/AI files
+.agents
+.seo
+CLAUDE.md
+research.md
+
 # Created by https://www.gitignore.io/api/node
 
 ### Node ###
